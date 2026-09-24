@@ -20,7 +20,12 @@ export function GalleryScene() {
         <LightingSetup room={room} darkMode={darkMode} />
         <RoomBuilder room={room} />
         {artworks.map((artwork) => (
-          <ArtworkMount key={artwork.id} artwork={artwork} onFocus={setActiveArtwork} />
+          <ArtworkMount
+            key={artwork.id}
+            artwork={artwork}
+            mountPoint={room.mountPoints.find((point) => point.id === artwork.mountPointId)}
+            onFocus={setActiveArtwork}
+          />
         ))}
         <NavigationController />
       </Suspense>

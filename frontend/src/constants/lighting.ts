@@ -1,8 +1,7 @@
 import { RoomType } from '../types/enums';
 import type { LightingConfig } from '../types/room';
 
-export const DEFAULT_LIGHTING: Record<RoomType, LightingConfig> = {
-  [RoomType.Main]: {
+export const DEFAULT_LIGHTING: Record<RoomType, LightingConfig> = {  [RoomType.Main]: {
     brightness: 1.15,
     colorTemperature: 4200,
     spotlights: [
@@ -25,4 +24,18 @@ export const DEFAULT_LIGHTING: Record<RoomType, LightingConfig> = {
     colorTemperature: 5600,
     spotlights: [],
   },
+};
+
+/** 返回某展厅类型默认灯光的深拷贝，避免多个展厅共享同一份聚光灯数组。 */
+export const cloneDefaultLighting = (roomType: RoomType): LightingConfig => {
+  const source = DEFAULT_LIGHTING[roomType];
+  return {
+    brightness: source.brightness,
+    colorTemperature: source.colorTemperature,
+    spotlights: source.spotlights.map((spot) => ({
+      position: { ...spot.position },
+      target: { ...spot.target },
+      intensity: spot.intensity,
+    })),
+  };
 };
