@@ -11,6 +11,7 @@ export interface Artwork {
   thumbnailUrl: string;
   description: string;
   roomId: string;
+  mountPointId?: string;
   mountPosition: Vector3Tuple;
   frameStyle: FrameStyle;
   tags: string[];
